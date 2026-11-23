@@ -1,0 +1,10 @@
+@mixin respond-from($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin focus-ring($color,$offset: 2px) {
+  outline: 3px solid $color;
+  outline-offset: $offset;
+}
