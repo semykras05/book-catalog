@@ -4,115 +4,171 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BookShelf — Каталог книг та персональний список читання</title>
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <header>
-      <h1>BookShelf — Каталог книг</h1>
-      <p>
-        Вебзастосунок для пошуку видань, ознайомлення з новинками та формування
-        персонального списку читання.
-      </p>
-      <nav>
-        <a href="#about">Про каталог</a> | <a href="#new-releases">Новинки</a> |
-        <a href="#categories">Категорії книг</a> |
-        <a href="#reading-list">Список читання</a> |
-        <a href="#contacts">Контакти</a>
-      </nav>
+    <header class="site-header">
+      <div class="container">
+        <h1 class="site-title">BookShelf — Каталог книг</h1>
+        <p class="site-subtitle">
+          Вебзастосунок для пошуку видань, ознайомлення з новинками та
+          формування персонального списку читання.
+        </p>
+        <nav class="main-nav" aria-label="Основна навігація">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a class="nav-link" href="#about">Про каталог</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#new-releases">Новинки</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#categories">Категорії книг</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#reading-list">Список читання</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contacts">Контакти</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
-    <main>
-      <section id="about">
-        <h2>Про сервіс</h2>
-        <p>
-          BookShelf — це інформаційний каталог для книголюбів, який поєднує
-          зручний пошук художньої та технічної літератури з можливістю вести
-          власний трекер прочитаного.
-        </p>
-        <p>
-          На цьому етапі реалізовано базову семантичну структуру сторінки. У
-          наступних версіях застосунку з'являться стилізація, інтерактивний
-          пошук видань, фільтрація за жанрами та збереження персонального списку
-          книг.
-        </p>
-      </section>
-
-      <section id="new-releases">
-        <h2>Новинки та популярні видання</h2>
-
-        <article>
-          <h3>1984 — Джордж Орвелл</h3>
-          <img
-            src="images/book-1984.jpg"
-            alt="Обкладинка книги Джорджа Орвелла 1984"
-            width="200"
-          />
-          <p>
-            Класичний роман-антиутопія про тоталітарне суспільство, контроль над
-            інформацією та боротьбу за свободу думки.
+    <main class="page-main">
+      <div class="container">
+        <section id="about" class="content-section">
+          <h2 class="section-title">Про сервіс</h2>
+          <p class="section-text">
+            BookShelf — це інформаційний каталог для книголюбів, який поєднує
+            зручний пошук художньої та технічної літератури з можливістю вести
+            власний трекер прочитаного.
           </p>
-        </article>
-
-        <article>
-          <h3>Кобзар — Тарас Шевченко</h3>
-          <img
-            src="images/book-kobzar.jpg"
-            alt="Обкладинка видання Кобзар Тараса Шевченка"
-            width="200"
-          />
-          <p>
-            Подарункове видання збірки поетичних творів, що стала фундаментом
-            нової української літератури.
+          <p class="section-text">
+            На цьому етапі реалізовано семантичну HTML5-структуру та базове
+            візуальне оформлення засобами CSS. У наступних версіях застосунку
+            з'являться інтерактивний пошук видань, фільтрація за жанрами та
+            динамічне керування списком книг.
           </p>
-        </article>
-      </section>
+          <a class="button" href="#new-releases">Переглянути новинки</a>
+        </section>
 
-      <section id="categories">
-        <h2>Категорії книг</h2>
-        <p>У каталозі доступні видання за основними тематичними напрямами:</p>
-        <ul>
-          <li>Художня література та класика</li>
-          <li>Наукова фантастика та фентезі</li>
-          <li>Програмування та ІТ</li>
-          <li>Історія та біографії</li>
-          <li>Психологія та саморозвиток</li>
-        </ul>
-      </section>
+        <section id="new-releases" class="content-section">
+          <h2 class="section-title">Новинки та популярні видання</h2>
 
-      <section id="reading-list">
-        <h2>Персональний список читання</h2>
-        <p>Приклад черги книг, запланованих до прочитання найближчим часом:</p>
-        <ol>
-          <li>Джордж Орвелл — «1984» (у планах)</li>
-          <li>Френк Герберт — «Дюна» (у процесі)</li>
-          <li>Роберт Мартін — «Чистий код» (у планах)</li>
-        </ol>
-      </section>
+          <div class="cards-list">
+            <article class="card">
+              <img
+                class="card-image"
+                src="images/book-1984.jpg"
+                alt="Обкладинка книги Джорджа Орвелла 1984"
+              />
+              <h3 class="card-title">1984</h3>
+              <p class="card-author">Джордж Орвелл</p>
+              <p class="card-description">
+                Класичний роман-антиутопія про тоталітарне суспільство, контроль
+                над інформацією та боротьбу за свободу думки.
+              </p>
+              <button type="button" class="button">
+                Додати до списку читання
+              </button>
+            </article>
 
-      <section id="contacts">
-        <h2>Контакти та корисні ресурси</h2>
-        <p>
-          Електронна пошта для пропозицій щодо додавання нових видань:
-          <a href="mailto:info@bookshelf-catalog.ua"
-            >info@bookshelf-catalog.ua</a
-          >
-        </p>
-        <p>
-          Більше міжнародних рейтингів і відгуків читачів можна знайти на
-          платформі
-          <a
-            href="https://www.goodreads.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Goodreads</a
-          >.
-        </p>
-      </section>
+            <article class="card">
+              <img
+                class="card-image"
+                src="images/book-kobzar.jpg"
+                alt="Обкладинка видання Кобзар Тараса Шевченка"
+              />
+              <h3 class="card-title">Кобзар</h3>
+              <p class="card-author">Тарас Шевченко</p>
+              <p class="card-description">
+                Подарункове видання збірки поетичних творів, що стала
+                фундаментом нової української літератури.
+              </p>
+              <button type="button" class="button">
+                Додати до списку читання
+              </button>
+            </article>
+
+            <article class="card">
+              <img
+                class="card-image"
+                src="images/book-dune.jpg"
+                alt="Обкладинка книги Френка Герберта Дюна"
+              />
+              <h3 class="card-title">Дюна</h3>
+              <p class="card-author">Френк Герберт</p>
+              <p class="card-description">
+                Культова науково-фантастична сага про пустельну планету Арракіс,
+                боротьбу великих домів та пошук власного призначення.
+              </p>
+              <button type="button" class="button">
+                Додати до списку читання
+              </button>
+            </article>
+          </div>
+        </section>
+
+        <section id="categories" class="content-section">
+          <h2 class="section-title">Категорії книг</h2>
+          <p class="section-text">
+            У каталозі доступні видання за основними тематичними напрямами:
+          </p>
+          <ul class="category-list">
+            <li class="category-item">Художня література та класика</li>
+            <li class="category-item">Наукова фантастика та фентезі</li>
+            <li class="category-item">Програмування та ІТ</li>
+            <li class="category-item">Історія та біографії</li>
+            <li class="category-item">Психологія та саморозвиток</li>
+          </ul>
+        </section>
+
+        <section id="reading-list" class="content-section">
+          <h2 class="section-title">Персональний список читання</h2>
+          <p class="section-text">
+            Приклад черги книг, запланованих до прочитання найближчим часом:
+          </p>
+          <ol class="reading-list">
+            <li class="reading-item">Джордж Орвелл — «1984» (у планах)</li>
+            <li class="reading-item">Френк Герберт — «Дюна» (у процесі)</li>
+            <li class="reading-item">
+              Роберт Мартін — «Чистий код» (у планах)
+            </li>
+          </ol>
+        </section>
+
+        <section id="contacts" class="content-section">
+          <h2 class="section-title">Контакти та корисні ресурси</h2>
+          <p class="section-text">
+            Електронна пошта для пропозицій щодо додавання нових видань:
+            <a class="inline-link" href="mailto:info@bookshelf-catalog.ua"
+              >info@bookshelf-catalog.ua</a
+            >
+          </p>
+          <p class="section-text">
+            Більше міжнародних рейтингів і відгуків читачів можна знайти на
+            платформі
+            <a
+              class="inline-link"
+              href="https://www.goodreads.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Goodreads</a
+            >.
+          </p>
+        </section>
+      </div>
     </main>
 
-    <footer>
-      <p>
-        &copy; 2026 BookShelf — Вебзастосунок «Каталог книг». Навчальний проєкт.
-      </p>
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-text">
+          &copy; 2026 BookShelf — Вебзастосунок «Каталог книг». Навчальний
+          проєкт.
+        </p>
+      </div>
     </footer>
   </body>
 </html>
