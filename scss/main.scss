@@ -472,3 +472,73 @@ textarea {
   font-size: 0.95rem;
   color: v.$color-text-muted;
 }
+
+.catalog-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: v.$space-sm;
+  margin-top: v.$space-md;
+  margin-bottom: v.$space-md;
+
+  @include m.respond-from(v.$bp-tablet) {
+    grid-template-columns: 2fr 1fr;
+    gap: v.$space-md;
+  }
+
+  .control-group {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .control-label {
+    font-weight: 600;
+    color: v.$color-text;
+  }
+
+  .control-input {
+    width: 100%;
+    min-width: 0;
+    padding: 0.65rem 0.75rem;
+    color: v.$color-text;
+    background-color: v.$color-surface;
+    border: 1px solid v.$color-border;
+    border-radius: v.$radius-sm;
+
+    &:focus-visible {
+      @include m.focus-ring(v.$color-focus, 2px);
+    }
+  }
+}
+
+.results-count {
+  margin: 0 0 v.$space-sm;
+  font-weight: 600;
+  color: v.$color-text-muted;
+}
+
+.card-category {
+  align-self: flex-start;
+  margin: 0 0 v.$space-xs;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: v.$color-primary;
+  background-color: #dbeafe;
+  border-radius: 999px;
+}
+
+.empty-message {
+  margin: v.$space-md 0 0;
+  padding: v.$space-md;
+  text-align: center;
+  font-weight: 600;
+  color: v.$color-text-muted;
+  background-color: v.$color-background;
+  border: 1px dashed v.$color-border;
+  border-radius: v.$radius-sm;
+
+  &[hidden] {
+    display: none;
+  }
+}
