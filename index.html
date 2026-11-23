@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BookShelf — Каталог книг та персональний список читання</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/main.js" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -48,21 +49,38 @@
             зручний пошук художньої та технічної літератури з можливістю вести
             власний трекер прочитаного.
           </p>
-                    <p class="section-text">
+          <p class="section-text">
             Обирайте видання за улюбленими жанрами, переглядайте свіжі добірки
             редакції або залишайте запит на індивідуальну рекомендацію під ваш
             настрій та темп читання.
           </p>
 
-          </p>
-          <a class="button" href="#new-releases">Переглянути новинки</a>
+          <div class="about-actions">
+            <a class="button" href="#new-releases">Переглянути новинки</a>
+            <button
+              class="button button-secondary details-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="extra-details"
+            >
+              Показати більше
+            </button>
+          </div>
+
+          <div id="extra-details" class="extra-details is-hidden">
+            <p class="section-text">
+              У каталозі BookShelf ви можете позначати цікаві видання як обрані,
+              планувати власну місячну ціль читання та надсилати запити на підбір
+              літератури за жанром, обсягом і зручним форматом.
+            </p>
+          </div>
         </section>
 
         <section id="new-releases" class="content-section">
           <h2 class="section-title">Новинки та популярні видання</h2>
 
           <div class="cards-list">
-            <article class="card">
+            <article id="featured-book-card" class="card">
               <img
                 class="card-image"
                 src="images/book-1984.jpg"
@@ -74,8 +92,12 @@
                 Класичний роман-антиутопія про тоталітарне суспільство, контроль
                 над інформацією та боротьбу за свободу думки.
               </p>
-              <button type="button" class="button">
-                Додати до списку читання
+              <button
+                type="button"
+                class="button favorite-button"
+                aria-pressed="false"
+              >
+                Додати в обране
               </button>
             </article>
 
@@ -139,6 +161,34 @@
             <li class="reading-item">Френк Герберт — «Дюна» (у процесі)</li>
             <li class="reading-item">Роберт Мартін — «Чистий код» (у планах)</li>
           </ol>
+
+          <div class="goal-counter">
+            <p class="goal-label">Ціль читання на місяць (від 1 до 12 книг):</p>
+            <div class="counter-controls">
+              <button
+                id="counter-decrement"
+                class="button button-secondary counter-button"
+                type="button"
+                aria-label="Зменшити ціль читання"
+              >
+                −
+              </button>
+              <span id="counter-value" class="counter-value" aria-live="polite"
+                >3</span
+              >
+              <button
+                id="counter-increment"
+                class="button button-secondary counter-button"
+                type="button"
+                aria-label="Збільшити ціль читання"
+              >
+                +
+              </button>
+            </div>
+            <p id="counter-status" class="counter-status">
+              Поточна ціль: 3 книги на місяць.
+            </p>
+          </div>
         </section>
 
         <section id="recommendation" class="content-section">

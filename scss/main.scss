@@ -386,3 +386,89 @@ textarea {
     color: v.$color-text-muted;
   }
 }
+
+.is-hidden {
+  display: none;
+}
+
+.about-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-sm;
+  margin-top: v.$space-md;
+}
+
+.extra-details {
+  margin-top: v.$space-md;
+  padding: v.$space-md;
+  background-color: v.$color-background;
+  border-left: 4px solid v.$color-primary;
+  border-radius: v.$radius-sm;
+
+  .section-text:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.card.is-active {
+  border-color: v.$color-primary;
+  background-color: #eff6ff;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.14);
+}
+
+.favorite-button.is-active {
+  background-color: #15803d;
+  border-color: #15803d;
+  color: v.$color-surface;
+
+  &:hover {
+    background-color: #166534;
+    border-color: #166534;
+  }
+}
+
+.goal-counter {
+  margin-top: v.$space-lg;
+  padding: v.$space-md;
+  background-color: v.$color-background;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-sm;
+}
+
+.goal-label {
+  margin: 0 0 v.$space-sm;
+  font-weight: 600;
+  color: v.$color-text;
+}
+
+.counter-controls {
+  display: flex;
+  align-items: center;
+  gap: v.$space-sm;
+}
+
+.counter-button {
+  min-width: 2.75rem;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1;
+
+  &.is-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.counter-value {
+  min-width: 2.5rem;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: v.$color-primary;
+}
+
+.counter-status {
+  margin: v.$space-sm 0 0;
+  font-size: 0.95rem;
+  color: v.$color-text-muted;
+}

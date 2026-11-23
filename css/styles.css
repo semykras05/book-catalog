@@ -376,4 +376,87 @@ textarea {
   color: #4b5563;
 }
 
+.is-hidden {
+  display: none;
+}
+
+.about-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.extra-details {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f3f4f6;
+  border-left: 4px solid #1d4ed8;
+  border-radius: 0.5rem;
+}
+.extra-details .section-text:last-child {
+  margin-bottom: 0;
+}
+
+.card.is-active {
+  border-color: #1d4ed8;
+  background-color: #eff6ff;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.14);
+}
+
+.favorite-button.is-active {
+  background-color: #15803d;
+  border-color: #15803d;
+  color: #ffffff;
+}
+.favorite-button.is-active:hover {
+  background-color: #166534;
+  border-color: #166534;
+}
+
+.goal-counter {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+}
+
+.goal-label {
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.counter-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.counter-button {
+  min-width: 2.75rem;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.counter-button.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.counter-value {
+  min-width: 2.5rem;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1d4ed8;
+}
+
+.counter-status {
+  margin: 0.75rem 0 0;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
 /*# sourceMappingURL=styles.css.map */
