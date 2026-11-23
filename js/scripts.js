@@ -113,7 +113,3 @@ function renderBooks(booksToRender) {
 if (bookGrid && resultsCount && emptyMessage) {
   renderBooks(books);
 }
-
-git add js/scripts.js
-git commit -m "feat: add books data array and render cards dynamically"
-і
