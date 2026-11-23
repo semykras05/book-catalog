@@ -113,3 +113,25 @@ function renderBooks(booksToRender) {
 if (bookGrid && resultsCount && emptyMessage) {
   renderBooks(books);
 }
+
+function applyFilters() {
+  const query = searchInput.value.trim().toLowerCase();
+  const selectedCategory = categorySelect.value;
+
+  const filteredBooks = books.filter((book) => {
+    const searchableText =
+      `${book.title} ${book.author} ${book.description}`.toLowerCase();
+    const matchesText = searchableText.includes(query);
+    const matchesCategory =
+      selectedCategory === "all" || book.category === selectedCategory;
+
+    return matchesText && matchesCategory;
+  });
+
+  renderBooks(filteredBooks);
+}
+
+if (searchInput && categorySelect && bookGrid) {
+  searchInput.addEventListener("input", applyFilters);
+  categorySelect.addEventListener("change", applyFilters);
+}
