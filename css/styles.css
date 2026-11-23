@@ -13,6 +13,7 @@
   --color-surface: #ffffff;
   --color-border: #d1d5db;
   --color-focus: #93c5fd;
+  --color-error: #b91c1c;
   --radius: 12px;
   --space: 16px;
 }
@@ -69,14 +70,13 @@ textarea {
 }
 
 .nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.nav-item {
-  display: inline-block;
-  margin: 0 8px 8px 0;
 }
 
 .nav-link {
@@ -126,20 +126,24 @@ textarea {
 }
 
 .cards-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space);
   margin-top: 16px;
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-background);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 20px;
-  margin-bottom: var(--space);
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
 }
 
 .card-image {
-  width: 180px;
+  width: 160px;
   border-radius: 8px;
   border: 1px solid var(--color-border);
   margin-bottom: 14px;
@@ -161,6 +165,11 @@ textarea {
 .card-description {
   margin: 0 0 16px;
   color: var(--color-text);
+}
+
+.card .button {
+  margin-top: auto;
+  align-self: flex-start;
 }
 
 .button {
@@ -222,4 +231,80 @@ textarea {
   margin: 0;
   font-size: 0.9rem;
   color: var(--color-text-muted);
+}
+
+.request-form {
+  display: grid;
+  gap: var(--space);
+  max-width: 640px;
+  margin-top: 16px;
+}
+
+.form-field {
+  display: grid;
+  gap: 6px;
+}
+
+.form-label,
+.form-legend {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.form-control:focus-visible,
+.radio-option input:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.form-control:focus:invalid {
+  border-color: var(--color-error);
+}
+
+.form-fieldset {
+  margin: 0;
+  padding: 14px var(--space);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-background);
+}
+
+.format-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.button-secondary {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.button-secondary:hover {
+  background-color: var(--color-border);
+  border-color: var(--color-text-muted);
 }
