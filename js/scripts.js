@@ -40,7 +40,7 @@ const books = [
     category: "scifi",
     description:
       "Історія про вченого-психоісторика, який передбачає занепад Галактичної Імперії та створює план збереження знань.",
-    image: "images/book-dune.jpg",
+    image: "images/book-foundation.jpg",
   },
   {
     id: 5,
@@ -49,7 +49,7 @@ const books = [
     category: "it",
     description:
       "Практичний посібник зі створення зрозумілого, підтримуваного програмного коду та принципів рефакторингу.",
-    image: "images/book-1984.jpg",
+    image: "images/book-clean-code.jpg",
   },
   {
     id: 6,
@@ -58,7 +58,7 @@ const books = [
     category: "it",
     description:
       "Ілюстрований вступ до алгоритмів і структур даних із простими поясненнями пошуку, сортування та графів.",
-    image: "images/book-kobzar.jpg",
+    image: "images/book-algorithms.jpg",
   },
   {
     id: 7,
@@ -67,7 +67,7 @@ const books = [
     category: "nonfiction",
     description:
       "Покрокова методика формування корисних щоденних звичок і позбавлення від шкідливих через невеликі системні зміни.",
-    image: "images/book-1984.jpg",
+    image: "images/book-atomic-habits.jpg",
   },
   {
     id: 8,
@@ -76,7 +76,7 @@ const books = [
     category: "nonfiction",
     description:
       "Масштабний огляд історії людства від первісних племен до сучасної наукової та технологічної революції.",
-    image: "images/book-kobzar.jpg",
+    image: "images/book-sapiens.jpg",
   },
 ];
 
