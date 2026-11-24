@@ -34,6 +34,9 @@
             <li class="nav-item">
               <a class="nav-link" href="#recommendation">Підбір книги</a>
             </li>
+                     <li class="nav-item">
+           <a class="nav-link" href="#user-notes">Мої нотатки</a>
+         </li>
             <li class="nav-item">
               <a class="nav-link" href="#contacts">Контакти</a>
             </li>
@@ -325,6 +328,65 @@
             >.
           </p>
         </section>
+                  <section id="user-notes" class="content-section">
+            <h2 class="section-title">Мої нотатки про книги</h2>
+
+            <form id="user-item-form" class="request-form">
+              <div class="form-field">
+                <label class="form-label" for="user-title">Назва</label>
+                <input
+                  class="form-control"
+                  id="user-title"
+                  name="title"
+                  type="text"
+                  required
+                  minlength="3"
+                  maxlength="80"
+                />
+              </div>
+
+              <div class="form-field">
+                <label class="form-label" for="user-category">Категорія</label>
+                <select
+                  class="form-control"
+                  id="user-category"
+                  name="category"
+                  required
+                >
+                  <option value="">Оберіть категорію</option>
+                  <option value="fiction">Художня література</option>
+                  <option value="scifi">Фантастика та фентезі</option>
+                  <option value="it">Програмування та ІТ</option>
+                  <option value="nonfiction">Саморозвиток та історія</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label class="form-label" for="user-description">Опис</label>
+                <textarea
+                  class="form-control"
+                  id="user-description"
+                  name="description"
+                  rows="4"
+                  required
+                  minlength="10"
+                  maxlength="500"
+                ></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="button">Додати</button>
+              </div>
+            </form>
+
+            <p id="user-message" class="user-message" role="status"></p>
+
+            <h3 class="subsection-title">Мої нотатки</h3>
+            <div id="user-list" class="user-list"></div>
+            <p id="user-empty" class="empty-message">
+              Власних записів поки немає.
+            </p>
+          </section>
       </div>
     </main>
 
