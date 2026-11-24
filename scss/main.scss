@@ -542,3 +542,42 @@ textarea {
     display: none;
   }
 }
+
+.control-input:disabled,
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.load-status {
+  margin: 0 0 v.$space-sm;
+  font-weight: 600;
+  color: v.$color-primary;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.load-error {
+  margin: 0 0 v.$space-sm;
+  padding: v.$space-sm v.$space-md;
+  font-weight: 600;
+  color: v.$color-error;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: v.$radius-sm;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.retry-button {
+  margin-bottom: v.$space-md;
+
+  &[hidden] {
+    display: none;
+  }
+}
+

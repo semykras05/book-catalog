@@ -526,4 +526,39 @@ textarea {
   display: none;
 }
 
+.control-input:disabled,
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.load-status {
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+.load-status:empty {
+  display: none;
+}
+
+.load-error {
+  margin: 0 0 0.75rem;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #b91c1c;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.5rem;
+}
+.load-error[hidden] {
+  display: none;
+}
+
+.retry-button {
+  margin-bottom: 1rem;
+}
+.retry-button[hidden] {
+  display: none;
+}
+
 /*# sourceMappingURL=styles.css.map */
