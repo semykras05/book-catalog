@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BookShelf — Каталог книг та персональний список читання</title>
     <link rel="stylesheet" href="css/styles.css" />
-    <script src="js/main.js" defer></script>
-        <script src="js/scripts.js" defer></script>
+      <script type="module" src="js/main.js"></script>
+
 
   </head>
   <body>
@@ -76,7 +76,7 @@
               літератури за жанром, обсягом і зручним форматом.
             </p>
           </div>
-                <section id="new-releases" class="content-section">
+                       <section id="new-releases" class="content-section">
           <h2 class="section-title">Каталог та популярні видання</h2>
 
           <div class="catalog-controls">
@@ -102,12 +102,24 @@
             </div>
           </div>
 
+          <p id="load-status" class="load-status" role="status"></p>
+          <p id="load-error" class="load-error" role="alert" hidden></p>
+          <button
+            id="retry-load"
+            class="button retry-button"
+            type="button"
+            hidden
+          >
+            Спробувати ще раз
+          </button>
+
           <p id="results-count" class="results-count" aria-live="polite"></p>
           <div id="book-grid" class="cards-list"></div>
           <p id="empty-message" class="empty-message" hidden>
             Нічого не знайдено.
           </p>
         </section>
+
 
 
         <section id="categories" class="content-section">
