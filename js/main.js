@@ -1,6 +1,8 @@
 import { loadItems } from "./api.js";
 import { filterItems, renderItems } from "./catalog.js";
 import { debounce } from "./utils.js";
+import { initUserItems } from "./userItems.js";
+
 
 // --- Каталог книг (Лабораторна №7) ---
 const searchInput = document.querySelector("#book-search");
@@ -121,3 +123,6 @@ if (decrementButton && incrementButton && counterValue && counterStatus) {
 
   updateCounterUI();
 }
+// --- Власні нотатки користувача (Лабораторна №8) ---
+initUserItems();
+

@@ -581,3 +581,59 @@ textarea {
   }
 }
 
+.user-message {
+  margin: v.$space-md 0 0;
+  font-weight: 600;
+  color: v.$color-primary;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.subsection-title {
+  margin: v.$space-lg 0 v.$space-sm;
+  font-size: 1.2rem;
+  color: v.$color-text;
+}
+
+.user-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: v.$space-sm;
+
+  @include m.respond-from(v.$bp-tablet) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: v.$space-md;
+  }
+}
+
+.user-card {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-xs;
+  min-width: 0;
+  padding: v.$space-md;
+  background-color: v.$color-background;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-sm;
+}
+
+.user-card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  color: v.$color-text;
+  overflow-wrap: anywhere;
+}
+
+.user-card-description {
+  margin: 0 0 v.$space-sm;
+  color: v.$color-text-muted;
+  overflow-wrap: anywhere;
+}
+
+.user-delete-button {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
