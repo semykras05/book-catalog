@@ -6,6 +6,8 @@
     <title>BookShelf — Каталог книг та персональний список читання</title>
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/main.js" defer></script>
+        <script src="js/scripts.js" defer></script>
+
   </head>
   <body>
     <header class="site-header">
@@ -74,68 +76,39 @@
               літератури за жанром, обсягом і зручним форматом.
             </p>
           </div>
-        </section>
+                <section id="new-releases" class="content-section">
+          <h2 class="section-title">Каталог та популярні видання</h2>
 
-        <section id="new-releases" class="content-section">
-          <h2 class="section-title">Новинки та популярні видання</h2>
-
-          <div class="cards-list">
-            <article id="featured-book-card" class="card">
-              <img
-                class="card-image"
-                src="images/book-1984.jpg"
-                alt="Обкладинка книги Джорджа Орвелла 1984"
+          <div class="catalog-controls">
+            <div class="control-group">
+              <label class="control-label" for="book-search">Пошук</label>
+              <input
+                class="control-input"
+                id="book-search"
+                type="search"
+                placeholder="Введіть назву, автора або опис"
               />
-              <h3 class="card-title">1984</h3>
-              <p class="card-author">Джордж Орвелл</p>
-              <p class="card-description">
-                Класичний роман-антиутопія про тоталітарне суспільство, контроль
-                над інформацією та боротьбу за свободу думки.
-              </p>
-              <button
-                type="button"
-                class="button favorite-button"
-                aria-pressed="false"
-              >
-                Додати в обране
-              </button>
-            </article>
+            </div>
 
-            <article class="card">
-              <img
-                class="card-image"
-                src="images/book-kobzar.jpg"
-                alt="Обкладинка видання Кобзар Тараса Шевченка"
-              />
-              <h3 class="card-title">Кобзар</h3>
-              <p class="card-author">Тарас Шевченко</p>
-              <p class="card-description">
-                Подарункове видання збірки поетичних творів, що стала фундаментом
-                нової української літератури.
-              </p>
-              <button type="button" class="button">
-                Додати до списку читання
-              </button>
-            </article>
-
-            <article class="card">
-              <img
-                class="card-image"
-                src="images/book-dune.jpg"
-                alt="Обкладинка книги Френка Герберта Дюна"
-              />
-              <h3 class="card-title">Дюна</h3>
-              <p class="card-author">Френк Герберт</p>
-              <p class="card-description">
-                Культова науково-фантастична сага про пустельну планету Арракіс,
-                боротьбу великих домів та пошук власного призначення.
-              </p>
-              <button type="button" class="button">
-                Додати до списку читання
-              </button>
-            </article>
+            <div class="control-group">
+              <label class="control-label" for="category-filter">Категорія</label>
+              <select class="control-input" id="category-filter">
+                <option value="all">Усі</option>
+                <option value="fiction">Художня література</option>
+                <option value="scifi">Фантастика та фентезі</option>
+                <option value="it">Програмування та ІТ</option>
+                <option value="nonfiction">Саморозвиток та історія</option>
+              </select>
+            </div>
           </div>
+
+          <p id="results-count" class="results-count" aria-live="polite"></p>
+          <div id="book-grid" class="cards-list"></div>
+          <p id="empty-message" class="empty-message" hidden>
+            Нічого не знайдено.
+          </p>
         </section>
+
 
         <section id="categories" class="content-section">
           <h2 class="section-title">Категорії книг</h2>
