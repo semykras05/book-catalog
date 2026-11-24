@@ -2,9 +2,12 @@
 import { computed, ref } from "vue";
 import { books, CATEGORY_OPTIONS } from "./data/books.js";
 import BookList from "./components/BookList.vue";
+import UserBookForm from "./components/UserBookForm.vue";
 
 const query = ref("");
 const category = ref("all");
+const userItems = ref([]);
+const userStatus = ref("");
 
 const filteredBooks = computed(() => {
   const text = query.value.trim().toLowerCase();
@@ -20,6 +23,16 @@ const filteredBooks = computed(() => {
 function resetFilters() {
   query.value = "";
   category.value = "all";
+}
+
+function addUserItem(item) {
+  userItems.value = [...userItems.value, item];
+  userStatus.value = "Нотатку додано до списку.";
+}
+
+function deleteUserItem(id) {
+  userItems.value = userItems.value.filter((item) => item.id !== id);
+  userStatus.value = "Нотатку видалено зі списку.";
 }
 </script>
 
@@ -94,6 +107,31 @@ function resetFilters() {
 
         <BookList v-if="filteredBooks.length > 0" :items="filteredBooks" />
         <p v-else class="empty-message">Нічого не знайдено.</p>
+      </section>
+
+      <section id="user-notes" class="content-section">
+        <h2 class="section-title">Мої нотатки про книги</h2>
+        <p class="section-text">
+          Додавайте власні книжкові нотатки та видаляйте непотрібні записи.
+        </p>
+
+        <UserBookForm @add="addUserItem" />
+
+        <p v-if="userStatus" class="user-message" role="status">
+          {{ userStatus }}
+        </p>
+
+        <h3 class="subsection-title">
+          Список власних нотаток ({{ userItems.length }})
+        </h3>
+
+        <BookList
+          v-if="userItems.length > 0"
+          :items="userItems"
+          removable
+          @delete="deleteUserItem"
+        />
+        <p v-else class="empty-message">Власних записів поки немає.</p>
       </section>
     </div>
   </main>
