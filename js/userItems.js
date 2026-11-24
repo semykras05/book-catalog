@@ -1,3 +1,5 @@
+import { readUserItems, writeUserItems } from "./storage.js";
+
 const ALLOWED_CATEGORIES = ["fiction", "scifi", "it", "nonfiction"];
 
 const CATEGORY_LABELS = {
@@ -43,13 +45,36 @@ export function initUserItems() {
     return;
   }
 
-  let userItems = [];
+  let userItems;
+  try {
+    userItems = readUserItems();
+  } catch (error) {
+    userItems = [];
+    message.textContent =
+      "Не вдалося відновити записи. Список почато в пам’яті.";
+    console.error(error);
+  }
 
   function renderUserItems() {
     const fragment = document.createDocumentFragment();
     userItems.forEach((item) => fragment.append(createUserCard(item)));
     list.replaceChildren(fragment);
     empty.hidden = userItems.length !== 0;
+  }
+
+  function commit(nextItems) {
+    userItems = nextItems;
+    renderUserItems();
+
+    try {
+      writeUserItems(userItems);
+      return true;
+    } catch (error) {
+      message.textContent =
+        "Зміни є в пам’яті, але не збережені після закриття сторінки.";
+      console.error(error);
+      return false;
+    }
   }
 
   form.addEventListener("submit", (event) => {
@@ -80,9 +105,11 @@ export function initUserItems() {
       description,
     };
 
-    userItems = [...userItems, record];
-    renderUserItems();
-    message.textContent = "Запис додано до списку.";
+    const saved = commit([...userItems, record]);
+    if (saved) {
+      message.textContent = "Запис додано й збережено.";
+    }
+
     form.reset();
     form.elements.namedItem("title").focus();
   });
@@ -92,9 +119,11 @@ export function initUserItems() {
     if (!button || !list.contains(button)) return;
 
     const id = button.dataset.deleteId;
-    userItems = userItems.filter((item) => item.id !== id);
-    renderUserItems();
-    message.textContent = "Запис видалено.";
+    const saved = commit(userItems.filter((item) => item.id !== id));
+    if (saved) {
+      message.textContent = "Запис видалено й зміни збережено.";
+    }
+
     form.elements.namedItem("title").focus();
   });
 
