@@ -1,4 +1,82 @@
-// 1. Показати більше / Приховати у блоці «Про сервіс»
+import { loadItems } from "./api.js";
+import { filterItems, renderItems } from "./catalog.js";
+import { debounce } from "./utils.js";
+
+// --- Каталог книг (Лабораторна №7) ---
+const searchInput = document.querySelector("#book-search");
+const categorySelect = document.querySelector("#category-filter");
+const grid = document.querySelector("#book-grid");
+const resultsCount = document.querySelector("#results-count");
+const emptyMessage = document.querySelector("#empty-message");
+const statusMessage = document.querySelector("#load-status");
+const errorMessage = document.querySelector("#load-error");
+const retryButton = document.querySelector("#retry-load");
+
+let items = [];
+
+function updateView() {
+  const filtered = filterItems(
+    items,
+    searchInput.value,
+    categorySelect.value
+  );
+  renderItems(filtered, grid, resultsCount, emptyMessage);
+}
+
+async function init() {
+  searchInput.disabled = true;
+  categorySelect.disabled = true;
+  retryButton.disabled = true;
+  retryButton.hidden = true;
+  errorMessage.hidden = true;
+  statusMessage.textContent = "Завантаження…";
+  grid.setAttribute("aria-busy", "true");
+  grid.replaceChildren();
+  resultsCount.textContent = "";
+  emptyMessage.hidden = true;
+
+  let loaded = false;
+
+  try {
+    items = await loadItems();
+    updateView();
+    loaded = true;
+  } catch (error) {
+    items = [];
+    errorMessage.textContent =
+      "Не вдалося завантажити каталог. Спробуйте ще раз.";
+    errorMessage.hidden = false;
+    retryButton.hidden = false;
+    console.error(error);
+  } finally {
+    statusMessage.textContent = "";
+    grid.setAttribute("aria-busy", "false");
+    searchInput.disabled = !loaded;
+    categorySelect.disabled = !loaded;
+    retryButton.disabled = false;
+  }
+}
+
+if (
+  searchInput &&
+  categorySelect &&
+  grid &&
+  resultsCount &&
+  emptyMessage &&
+  statusMessage &&
+  errorMessage &&
+  retryButton
+) {
+  const debouncedUpdateView = debounce(updateView, 300);
+
+  searchInput.addEventListener("input", debouncedUpdateView);
+  categorySelect.addEventListener("change", updateView);
+  retryButton.addEventListener("click", init);
+
+  init();
+}
+
+// --- Збережені взаємодії з Лабораторної №5 ---
 const toggleButton = document.querySelector(".details-toggle");
 const detailsBlock = document.querySelector("#extra-details");
 
@@ -10,20 +88,6 @@ if (toggleButton && detailsBlock) {
   });
 }
 
-// 2. Додати в обране / В обраному на картці книги «1984»
-const favoriteButton = document.querySelector(".favorite-button");
-const featuredCard = document.querySelector("#featured-book-card");
-
-if (favoriteButton && featuredCard) {
-  favoriteButton.addEventListener("click", () => {
-    const isActive = favoriteButton.classList.toggle("is-active");
-    featuredCard.classList.toggle("is-active", isActive);
-    favoriteButton.textContent = isActive ? "В обраному" : "Додати в обране";
-    favoriteButton.setAttribute("aria-pressed", String(isActive));
-  });
-}
-
-// 3. Лічильник місячної цілі читання (межі від 1 до 12)
 const decrementButton = document.querySelector("#counter-decrement");
 const incrementButton = document.querySelector("#counter-increment");
 const counterValue = document.querySelector("#counter-value");
@@ -37,12 +101,8 @@ if (decrementButton && incrementButton && counterValue && counterStatus) {
   const updateCounterUI = () => {
     counterValue.textContent = String(currentGoal);
     counterStatus.textContent = `Поточна ціль: ${currentGoal} кн. на місяць.`;
-
-    const isMin = currentGoal <= MIN_GOAL;
-    const isMax = currentGoal >= MAX_GOAL;
-
-    decrementButton.classList.toggle("is-disabled", isMin);
-    incrementButton.classList.toggle("is-disabled", isMax);
+    decrementButton.classList.toggle("is-disabled", currentGoal <= MIN_GOAL);
+    incrementButton.classList.toggle("is-disabled", currentGoal >= MAX_GOAL);
   };
 
   decrementButton.addEventListener("click", () => {
