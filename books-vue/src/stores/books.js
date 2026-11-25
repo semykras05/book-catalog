@@ -1,11 +1,13 @@
 import { defineStore } from "pinia";
-import { fetchBooks } from "../services/booksApi.js";
+import { fetchBookDescription, fetchBooks } from "../services/booksApi.js";
 
 export const useBooksStore = defineStore("books", {
   state: () => ({
     books: [],
     favoriteIds: [],
     userItems: [],
+    descriptions: {},
+    descriptionLoading: false,
     loading: false,
     error: "",
     hasLoaded: false,
@@ -49,6 +51,20 @@ export const useBooksStore = defineStore("books", {
         console.error(error);
       } finally {
         this.loading = false;
+      }
+    },
+    async loadBookDescription(id) {
+      const key = String(id);
+      if (key in this.descriptions) return;
+
+      this.descriptionLoading = true;
+      try {
+        const summary = await fetchBookDescription(key);
+        this.descriptions = { ...this.descriptions, [key]: summary };
+      } catch {
+        this.descriptions = { ...this.descriptions, [key]: "" };
+      } finally {
+        this.descriptionLoading = false;
       }
     },
     retry() {

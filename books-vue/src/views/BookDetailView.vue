@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 import { useBooksStore } from "../stores/books.js";
 
@@ -14,6 +14,22 @@ onMounted(() => {
 const book = computed(() =>
   store.books.find((entry) => String(entry.id) === String(route.params.id))
 );
+
+watch(
+  book,
+  (currentBook) => {
+    if (currentBook) {
+      coverFailed.value = false;
+      store.loadBookDescription(currentBook.id);
+    }
+  },
+  { immediate: true }
+);
+
+const synopsis = computed(() => {
+  if (!book.value) return "";
+  return store.descriptions[String(book.value.id)] || book.value.description;
+});
 </script>
 
 <template>
@@ -77,7 +93,13 @@ const book = computed(() =>
         {{ book.editions }}
       </p>
 
-      <p class="detail-description">{{ book.description }}</p>
+      <p
+        v-if="store.descriptionLoading && !(String(book.id) in store.descriptions)"
+        class="detail-description"
+      >
+        Завантаження короткого опису сюжету…
+      </p>
+      <p v-else class="detail-description">{{ synopsis }}</p>
 
       <div v-if="book.subjects && book.subjects.length" class="tag-list">
         <span v-for="tag in book.subjects" :key="tag" class="tag-chip">
@@ -99,16 +121,6 @@ const book = computed(() =>
               : "♡ Додати до обраного"
           }}
         </button>
-
-        <a
-          v-if="book.openLibraryUrl"
-          :href="book.openLibraryUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button button-secondary"
-        >
-          Сторінка в Open Library ↗
-        </a>
 
         <RouterLink class="button button-ghost" :to="{ name: 'home' }">
           ← Назад до каталогу

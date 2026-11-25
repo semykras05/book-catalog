@@ -38,6 +38,36 @@ function detectCategory(subjects) {
   return { value: "fiction", label: "Художня література" };
 }
 
+function truncateText(text, maxLength) {
+  if (text.length <= maxLength) return text;
+  const cut = text.slice(0, maxLength);
+  const lastPeriod = cut.lastIndexOf(".");
+  if (lastPeriod > maxLength * 0.45) {
+    return cut.slice(0, lastPeriod + 1);
+  }
+  return `${cut.trim()}…`;
+}
+
+function cleanWorkDescription(rawDesc) {
+  const text =
+    typeof rawDesc === "string"
+      ? rawDesc
+      : rawDesc && typeof rawDesc.value === "string"
+        ? rawDesc.value
+        : "";
+
+  if (!text) return "";
+
+  const cleaned = text
+    .split(/\r?\n\s*---|\r?\n\s*\[\d+\]:/)[0]
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/\[([^\]]+)\]\[\d+\]/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return truncateText(cleaned, 340);
+}
+
 function normalizeBook(raw) {
   const cleanId = String(raw.key || "").replace(/^\/works\//, "").trim();
   const authors =
@@ -58,13 +88,19 @@ function normalizeBook(raw) {
       ? Number(raw.ratings_average.toFixed(1))
       : null;
 
-  const summaryParts = [];
-  if (year) {
-    summaryParts.push(`Перше видання — ${year} р.`);
-  }
-  summaryParts.push(`Доступно видань у базі: ${editions}.`);
-  if (subjects.length > 0) {
-    summaryParts.push(`Ключові теми: ${subjects.slice(0, 3).join(", ")}.`);
+  const firstSentence = Array.isArray(raw.first_sentence)
+    ? String(raw.first_sentence[0] || "").trim()
+    : typeof raw.first_sentence === "string"
+      ? raw.first_sentence.trim()
+      : "";
+
+  let description = "";
+  if (firstSentence) {
+    description = `«${truncateText(firstSentence, 150)}»`;
+  } else if (subjects.length > 0) {
+    description = `Твір у категорії «${categoryLabel}», що розкриває теми: ${subjects.slice(0, 3).join(", ")}.`;
+  } else {
+    description = `Відоме видання у категорії «${categoryLabel}» від ${authors}.`;
   }
 
   return {
@@ -73,7 +109,7 @@ function normalizeBook(raw) {
     author: authors,
     category,
     categoryLabel,
-    description: summaryParts.join(" "),
+    description,
     year,
     editions,
     rating,
@@ -84,7 +120,6 @@ function normalizeBook(raw) {
     coverLarge: raw.cover_i
       ? `https://covers.openlibrary.org/b/id/${raw.cover_i}-L.jpg`
       : "",
-    openLibraryUrl: raw.key ? `https://openlibrary.org${raw.key}` : "",
   };
 }
 
@@ -104,4 +139,17 @@ export async function fetchBooks(url = API_URL) {
   return payload.docs
     .filter((doc) => doc && doc.key && doc.title)
     .map(normalizeBook);
+}
+
+export async function fetchBookDescription(id) {
+  const response = await fetch(
+    `https://openlibrary.org/works/${encodeURIComponent(id)}.json`
+  );
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  const payload = await response.json();
+  return cleanWorkDescription(payload.description);
 }
