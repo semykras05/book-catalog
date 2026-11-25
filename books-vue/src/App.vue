@@ -12,8 +12,7 @@ const store = useBooksStore();
         <div>
           <h1 class="site-title">BookShelf — Каталог книг</h1>
           <p class="site-subtitle">
-            Вебзастосунок на Vue 3 із Vue Router та Pinia для перегляду каталогу
-            й обраних видань.
+            Добірка художньої, наукової та професійної літератури з пошуком і списком обраного.
           </p>
         </div>
 
@@ -43,7 +42,7 @@ const store = useBooksStore();
   <footer class="site-footer">
     <div class="container">
       <p class="footer-text">
-        &copy; 2026 BookShelf — Навчальний проєкт на Vue 3, Vue Router та Pinia.
+        &copy; 2026 BookShelf — Каталог книг та персональна добірка читання
       </p>
     </div>
   </footer>
