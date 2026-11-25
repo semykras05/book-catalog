@@ -1,3 +1,4 @@
+cat << 'EOF' > /Users/semykras/book-catalog/books-vue/src/services/booksApi.js
 import { API_URL } from "../config/api.js";
 
 const CATEGORY_RULES = [
@@ -28,6 +29,35 @@ const CATEGORY_RULES = [
   },
 ];
 
+const SUBJECT_TRANSLATIONS = {
+  fiction: "художня проза",
+  fantasy: "фентезі",
+  "science fiction": "наукова фантастика",
+  romance: "романтика",
+  "love stories": "історії кохання",
+  love: "кохання",
+  mystery: "детектив",
+  thriller: "трилер",
+  horror: "готика та жахи",
+  classic: "класика",
+  classics: "світова класика",
+  adventure: "пригоди",
+  history: "історія",
+  historical: "історична проза",
+  drama: "драма",
+  magic: "магія",
+  dystopia: "антиутопія",
+  monsters: "містика",
+  scientists: "наука",
+  humor: "гумор",
+  "young adult": "підліткова проза",
+  children: "дитяча література",
+  family: "сімейна сага",
+  friendship: "дружба",
+  war: "воєнна проза",
+  "time travel": "подорожі в часі",
+};
+
 function detectCategory(subjects) {
   const joined = subjects.join(" ").toLowerCase();
   for (const rule of CATEGORY_RULES) {
@@ -38,34 +68,30 @@ function detectCategory(subjects) {
   return { value: "fiction", label: "Художня література" };
 }
 
-function truncateText(text, maxLength) {
-  if (text.length <= maxLength) return text;
-  const cut = text.slice(0, maxLength);
-  const lastPeriod = cut.lastIndexOf(".");
-  if (lastPeriod > maxLength * 0.45) {
-    return cut.slice(0, lastPeriod + 1);
+function translateSubjects(rawSubjects) {
+  const result = [];
+  for (const item of rawSubjects) {
+    if (typeof item !== "string") continue;
+    const lower = item.toLowerCase();
+    for (const [en, uk] of Object.entries(SUBJECT_TRANSLATIONS)) {
+      if (lower.includes(en) && !result.includes(uk)) {
+        result.push(uk);
+      }
+    }
+    if (result.length >= 4) break;
   }
-  return `${cut.trim()}…`;
+  return result.length > 0 ? result : ["художня проза", "світова література"];
 }
 
-function cleanWorkDescription(rawDesc) {
-  const text =
-    typeof rawDesc === "string"
-      ? rawDesc
-      : rawDesc && typeof rawDesc.value === "string"
-        ? rawDesc.value
-        : "";
+function buildUkrainianDescription(categoryLabel, author, subjects, year) {
+  const topics = subjects.slice(0, 3).join(", ");
+  const period = year
+    ? year < 1950
+      ? "Визнаний твір світової літературної спадщини"
+      : "Популярне видання сучасної літератури"
+    : "Відомий твір";
 
-  if (!text) return "";
-
-  const cleaned = text
-    .split(/\r?\n\s*---|\r?\n\s*\[\d+\]:/)[0]
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/\[([^\]]+)\]\[\d+\]/g, "$1")
-    .replace(/\s+/g, " ")
-    .trim();
-
-  return truncateText(cleaned, 340);
+  return `${period} у жанрі «${categoryLabel}» від ${author}. Ключові мотиви твору: ${topics}.`;
 }
 
 function normalizeBook(raw) {
@@ -76,11 +102,9 @@ function normalizeBook(raw) {
       : "Автор невідомий";
 
   const rawSubjects = Array.isArray(raw.subject) ? raw.subject : [];
-  const subjects = rawSubjects
-    .filter((entry) => typeof entry === "string" && entry.length <= 36)
-    .slice(0, 5);
-
   const { value: category, label: categoryLabel } = detectCategory(rawSubjects);
+  const subjects = translateSubjects(rawSubjects);
+
   const year = raw.first_publish_year ? Number(raw.first_publish_year) : null;
   const editions = Number(raw.edition_count || 1);
   const rating =
@@ -88,20 +112,12 @@ function normalizeBook(raw) {
       ? Number(raw.ratings_average.toFixed(1))
       : null;
 
-  const firstSentence = Array.isArray(raw.first_sentence)
-    ? String(raw.first_sentence[0] || "").trim()
-    : typeof raw.first_sentence === "string"
-      ? raw.first_sentence.trim()
-      : "";
-
-  let description = "";
-  if (firstSentence) {
-    description = `«${truncateText(firstSentence, 150)}»`;
-  } else if (subjects.length > 0) {
-    description = `Твір у категорії «${categoryLabel}», що розкриває теми: ${subjects.slice(0, 3).join(", ")}.`;
-  } else {
-    description = `Відоме видання у категорії «${categoryLabel}» від ${authors}.`;
-  }
+  const description = buildUkrainianDescription(
+    categoryLabel,
+    authors,
+    subjects,
+    year
+  );
 
   return {
     id: cleanId,
@@ -141,15 +157,7 @@ export async function fetchBooks(url = API_URL) {
     .map(normalizeBook);
 }
 
-export async function fetchBookDescription(id) {
-  const response = await fetch(
-    `https://openlibrary.org/works/${encodeURIComponent(id)}.json`
-  );
-
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
-  }
-
-  const payload = await response.json();
-  return cleanWorkDescription(payload.description);
+export async function fetchBookDescription() {
+  return "";
 }
+EOF
