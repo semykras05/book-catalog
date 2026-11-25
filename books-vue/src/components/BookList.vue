@@ -14,6 +14,10 @@ defineProps({
     type: Boolean,
     default: true,
   },
+  showCover: {
+    type: Boolean,
+    default: true,
+  },
   removable: {
     type: Boolean,
     default: false,
@@ -24,13 +28,14 @@ const emit = defineEmits(["delete"]);
 </script>
 
 <template>
-  <div class="book-grid">
+  <div class="book-grid" :class="{ 'notes-grid': !showCover }">
     <BookCard
       v-for="item in items"
       :key="item.id"
       :item="item"
       :show-details="showDetails"
       :show-favorite="showFavorite"
+      :show-cover="showCover"
       :removable="removable"
       @delete="emit('delete', $event)"
     />
