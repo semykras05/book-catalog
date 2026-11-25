@@ -1,4 +1,3 @@
-cat << 'EOF' > /Users/semykras/book-catalog/books-vue/src/services/booksApi.js
 import { API_URL } from "../config/api.js";
 
 const CATEGORY_RULES = [
@@ -160,4 +159,3 @@ export async function fetchBooks(url = API_URL) {
 export async function fetchBookDescription() {
   return "";
 }
-EOF
