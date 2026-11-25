@@ -493,6 +493,16 @@ body {
   line-height: 1.3;
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  .placeholder-title {
+  font-size: 0.92rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
